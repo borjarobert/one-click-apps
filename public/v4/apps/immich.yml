@@ -5,7 +5,7 @@ services:
         caproverExtra:
             dockerfileLines:
                 - FROM ghcr.io/immich-app/immich-server:$$cap_version
-            containerHttpPort: 3001
+            containerHttpPort: 2283
         environment:
             DB_PASSWORD: $$cap_app_db_pass
             DB_USERNAME: $$cap_app_db_user
@@ -43,7 +43,7 @@ services:
     $$cap_appname-db:
         caproverExtra:
             notExposeAsWebApp: 'true'
-        image: tensorchord/pgvecto-rs:$$cap_app_db_ver
+        image: ghcr.io/immich-app/postgres:$$cap_app_db_ver
         environment:
             POSTGRES_PASSWORD: $$cap_app_db_pass
             POSTGRES_USER: $$cap_app_db_user
@@ -55,7 +55,7 @@ services:
 caproverOneClickApp:
     displayName: Immich
     description: Open source (AGPLv3) Google Photos alternative. Backup your phone's photos and videos to your private server.
-    isOfficial: false
+    isOfficial: true
     documentation: https://immich.app
     instructions:
         start: |-
@@ -67,7 +67,7 @@ caproverOneClickApp:
         - label: Immich version
           id: $$cap_version
           description: Check out their valid tags at https://github.com/immich-app/immich/releases
-          defaultValue: v1.108.0
+          defaultValue: v2.2.0
         - label: Immich redis version
           id: $$cap_redis_ver
           defaultValue: 6.2-alpine@sha256:c5a607fb6e1bb15d32bbcf14db22787d19e428d59e31a5da67511b49bb0f1ccc
@@ -86,9 +86,9 @@ caproverOneClickApp:
           defaultValue: 'immich'
         - label: PostgreSQL database version
           id: $$cap_app_db_ver
-          description: Immich uses PostgreSQL with the pgvecto.rs extension. Check the valid tags at https://hub.docker.com/r/tensorchord/pgvecto-rs/tags
-          defaultValue: pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
+          description: Immich uses a very particular PostgreSQL with the pgvecto.rs extension. Don't change the version unless you know what you're doing.
+          defaultValue: 14-vectorchord0.4.3-pgvectors0.2.0@sha256:5f6a838e4e44c8e0e019d0ebfe3ee8952b69afc2809b2c25f7b0119641978e91
         - label: Upload directory
           id: $$cap_app_upload_location
-          description: Full path to the directory where you plan to store all your files. It should be created beforehand. If you want caprover to create it for you just leave the default 'immich-data'
-          defaultValue: immich-data
+          description: Full path to the directory where you plan to store all your files. It should be created beforehand. If you want caprover to create it for you just leave the default.
+          defaultValue: $$cap_appname-data
