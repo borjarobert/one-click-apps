@@ -91,4 +91,4 @@ caproverOneClickApp:
         - label: Upload directory
           id: $$cap_app_upload_location
           description: Full path to the directory where you plan to store all your files. It should be created beforehand. If you want caprover to create it for you just leave the default.
-          defaultValue: $$cap_appname-data
+          defaultValue: immich-data
